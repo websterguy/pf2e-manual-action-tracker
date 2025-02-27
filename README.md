@@ -12,7 +12,7 @@ This mod provides a manual action tracker on the canvas.
 What's the manual part?
 
 - The module does not and never will track actions used when an action/strike/spell is posted to chat.
-- You can add as many actions to track above 3 and as many reactions above 1 as you desire. Tracking and action count is unique per actor.
+- You can add as many actions to track above 3 and as many reactions above 1 as you desire (hold shift to remove). Tracking and action count is unique per actor.
 
 What's automated?
 
