@@ -16,8 +16,8 @@ What's automated?
 
 - The module adds an extra action when quickened.
 - The module locks out actions when slowed and/or stunned. The extra action from quickened will be locked out first with the assumption that it has the least versatility and would be desired to be lost first.
-  - When stunned at start of turn and removing the number of available actions from the stunned count still leaves the actor stunned, actions and reactions are set as used/unavailable.
-  - If the turn starts with both slowed and stunned, and there are actions left over after stunned count has been used up, slowed is applied to remaining actions.
+  - When stunned at start of turn and removing the number of available actions from the stunned count still leaves the actor stunned, reactions are set as used/unavailable.
+  - If the turn starts with both slowed and stunned, and there are actions left over after stunned count has been used up, slowed is applied to remaining actions after taking the stunned into account.
   - Stunned count is **not** removed from the condition counter when applied to lock out actions.
 - The module sets all actions and reactions as used/unavailable on combat start and resets actions and reactions on turn start.
 

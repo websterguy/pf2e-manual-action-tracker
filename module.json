@@ -1,51 +1,50 @@
 {
-  "id": "module",
-  "title": "New Module",
-  "description": "",
-  "version": "#{VERSION}#",
-  "library": "false",
-  "manifestPlusVersion": "1.2.0",
+  "id": "pf2e-manual-action-tracker",
+  "title": "PF2e Manual Action Tracker",
+  "version": "0.0.1",
   "compatibility": {
-    "minimum": 10,
-    "verified": 10,
-    "maximum": 11
+    "minimum": "12",
+    "verified": "12.331",
+    "maximum": "12"
   },
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "6.1.0",
+          "verified": "6.9.0"
+        }
+      }
+    ]
+  },
+  "styles": [
+    "styles/actionTracker.css"
+  ],
+  "esmodules": [
+    "scripts/actionTracker.js"
+  ],
+  "description": "Provides a UI to manually track actions and reactions used.",
   "authors": [
     {
-      "name": "The League of Extraordinary FVTT Developers",
-      "url": "https://github.com/League-of-Foundry-Developers",
-      "discord": "discordID#0001"
+      "name": "websterguy",
+      "url": "https://github.com/websterguy",
+      "discord": "websterguy",
+      "flags": {}
     }
   ],
-  "relationships": {
-    "systems": [],
-    "requires": []
-  },
-  "esmodules": [
-    "scripts/module.js"
-  ],
-  "scripts": [
-    "scripts/lib/lib.js"
-  ],
-  "styles": [
-    "styles/module.css"
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "languages/en.json"
-    }
-  ],
-  "url": "#{URL}#",
-  "manifest": "#{MANIFEST}#",
-  "download": "#{DOWNLOAD}#",
-  "license": "LICENSE",
-  "readme": "README.md",
   "media": [
     {
-      "type": "icon",
-      "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
+      "type": "setup",
+      "caption": "Manual Action Tracker",
+      "loop": false,
+      "thumbnail": "/modules/pf2e-manual-action-tracker/images/thumbnail.webp",
+      "flags": {}
     }
-  ]
+  ],
+  "url": "https://github.com/websterguy/pf2e-manual-action-tracker",
+  "manifest": "https://github.com/websterguy/pf2e-manual-action-tracker/releases/latest/download/module.json",
+  "download": "https://github.com/websterguy/pf2e-manual-action-tracker/releases/download/0.0.1/pf2e-manual-action-tracker.zip",
+  "readme": "README.md"
 }
