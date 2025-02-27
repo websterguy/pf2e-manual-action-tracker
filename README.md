@@ -7,7 +7,7 @@ https://github.com/websterguy/pf2e-manual-action-tracker/releases/latest/downloa
 
 This mod provides a manual action tracker on the canvas.
 
-![Manual Action Tracker](https://github.com/websterguy/pf2e-manual-action-tracker/blob/readme/images/thumbnail.webp)
+![Manual Action Tracker](https://raw.githubusercontent.com/websterguy/pf2e-manual-action-tracker/refs/heads/master/images/thumbnail.webp)
 
 What's the manual part?
 
