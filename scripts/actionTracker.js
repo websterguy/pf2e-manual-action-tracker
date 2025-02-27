@@ -141,7 +141,7 @@ class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
                 slowed: 0,
                 stunned: 0
             }
-            ActionTracker.updateActor();
+            if (ActionTracker.token.actor.inCombat) await ActionTracker.updateActor();
         }
 
         let quickened, slowed, stunned;
@@ -151,9 +151,10 @@ class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
             ({ quickened, slowed, stunned } = ActionTracker.actionsData);
         }
         else {
-            quickened = ActionTracker.token.actor.conditions.contents.some(o => o.slug === 'quickened') ? 1 : 0;
-            slowed = ActionTracker.token.actor.conditions.contents.find(o => o.slug === 'slowed')?.system.value.value ?? 0;
-            stunned = ActionTracker.token.actor.conditions.contents.find(o => o.slug === 'stunned')?.system.value.value ?? 0;
+            ActionTracker.actionsData.quickened = quickened = ActionTracker.token.actor.conditions.contents.some(o => o.slug === 'quickened') ? 1 : 0;
+            ActionTracker.actionsData.slowed = slowed = ActionTracker.token.actor.conditions.contents.find(o => o.slug === 'slowed')?.system.value.value ?? 0;
+            ActionTracker.actionsData.stunned = stunned = ActionTracker.token.actor.conditions.contents.find(o => o.slug === 'stunned')?.system.value.value ?? 0;
+            await ActionTracker.updateActor();
         }
 
         context.actionArray = [];
