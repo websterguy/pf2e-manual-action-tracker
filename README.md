@@ -23,6 +23,13 @@ What's automated?
   - Stunned count is **not** removed from the condition counter when applied to lock out actions.
 - The module sets all actions and reactions as used/unavailable on combat start and resets actions and reactions on turn start.
 
+Usage
+
+Click an unused action to mark one as used. Used actions will be grouped together.
+Right click a used action to restore it as unused.
+Click the add button to add one to the max actions or reactions.
+Shift+click the add button to remove one from the max actions or reactions.
+
 ## Donations
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y5TH8DM)
