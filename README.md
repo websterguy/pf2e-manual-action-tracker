@@ -25,10 +25,10 @@ What's automated?
 
 Usage
 
-Click an unused action to mark one as used. Used actions will be grouped together.
-Right click a used action to restore it as unused.
-Click the add button to add one to the max actions or reactions.
-Shift+click the add button to remove one from the max actions or reactions.
+- Click an unused action to mark one as used. Used actions will be grouped together.
+- Right click a used action to restore it as unused.
+- Click the add button to add one to the max actions or reactions.
+- Shift+click the add button to remove one from the max actions or reactions.
 
 ## Donations
 
