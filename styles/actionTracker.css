@@ -1,4 +1,4 @@
-#tracker header {
+#action-tracker header {
     width: 30px;
     height: 30px;
     position: absolute;
@@ -6,30 +6,30 @@
     visibility: hidden;
 }
 
-#tracker:hover header {
+#action-tracker:hover header {
     background: transparent;
     visibility: visible;
     border: none;
     text-shadow: 0px 0px 1px black, 0px 0px 1px black, 0px 0px 1px black;
 }
 
-#tracker {
+#action-tracker {
     overflow: visible;
     min-width: 0px;
     width: auto !important;
     max-width: 475px;
 }
 
-#tracker .window-content {
+#action-tracker .window-content {
     padding: 10px 5px 5px 5px;
     overflow: visible;
 }
 
-#tracker #mainTracker {
+#action-tracker #mainTracker {
     overflow: visible;
 }
 
-.trackerPip {
+#action-tracker .tracker-pip {
     position: relative;
     height: 30px;
     width: 30px;
@@ -38,45 +38,59 @@
     display: inline-block;
     color: #000;
     text-align: center;
-    border: 2px #fff solid;
     margin-bottom:5px;
 }
 
-.trackerPip.used {
+.theme-dark #action-tracker .tracker-pip {
+    border: 2px #fff solid;
+}
+
+.theme-light #action-tracker .tracker-pip {
+    border: 2px #000 solid;
+}
+
+#action-tracker .tracker-pip.used {
     background-color: #a03131;
 }
 
-.trackerPip.quickened {
+#action-tracker .tracker-pip.quickened {
     border-color: #0580c7;
 }
 
-.trackerPip.quickened.usable {
+#action-tracker .tracker-pip.quickened.usable {
     background-color: #4abdff;
 }
 
-.trackerPip.stun {
+#action-tracker .tracker-pip.stun {
     background-image: url(/systems/pf2e/icons/conditions/stunned.webp);
     background-size: contain;
 }
 
-.trackerPip.slow {
+#action-tracker .tracker-pip.slow {
     background-image: url(/systems/pf2e/icons/conditions/slowed.webp);
     background-size: contain;
 }
 
-.trackerPip.action-glyph {
+#action-tracker .tracker-pip.action-glyph {
     font-size: 16pt;
     line-height: 21pt;
 }
 
-.addPip {
+#action-tracker .tracker-pip.add-pip {
     padding-top: 0px;
     background: none;
     border-style: dashed;
+}
+
+.theme-dark #action-tracker .tracker-pip.add-pip {
     color: #bbb;
 }
 
-#tracker .trackerPip .fas {
+.theme-light #action-tracker .tracker-pip.add-pip {
+    color: #000;
+}
+
+#action-tracker .tracker-pip .fas {
     position: absolute !important;
     top: -2px;
     right: -2px;
@@ -86,15 +100,15 @@
     pointer-events: none;
 }
 
-#tracker .trackerPip .fa-plus {
+#action-tracker .tracker-pip .fa-plus {
     background: #066531;
 }
 
-#tracker .trackerPip .fa-minus {
+#action-tracker .tracker-pip .fa-minus {
     background: #bd0000;
 }
 
-#tracker #tokenName {
+#action-tracker #token-name {
     position: absolute;
     top: -20px;
     text-shadow: 0px 0px 1px black, 0px 0px 1px black, 0px 0px 1px black;
@@ -102,10 +116,14 @@
     font-size: 12pt;
 }
 
-#tracker:hover .tokenNameHover {
+#action-tracker:hover .token-name-hover {
     visibility: visible;
 }
 
-#tracker .tokenNameHover {
+#action-tracker .token-name-hover {
     visibility: hidden;
+}
+
+.theme-light #action-tracker {
+    color: #bbb;
 }

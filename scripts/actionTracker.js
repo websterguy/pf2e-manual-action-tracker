@@ -104,7 +104,7 @@ class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
     static shiftDown = false; // holds if shift is being held down when window re-renders
 
     static DEFAULT_OPTIONS = {
-        id: 'tracker',
+        id: 'action-tracker',
         background: 'none',
         window: {
             icon: 'fas fa-arrows-up-down-left-right',
@@ -342,14 +342,14 @@ class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
 
     /** @override */
     close(options) {
-        $(document).off('keydown.pf2e-manual-action-tracker.tracker').off('keyup.pf2e-manual-action-tracker.tracker'); // turn off listeners
+        $(document).off('keydown.pf2e-manual-action-tracker.action-tracker').off('keyup.pf2e-manual-action-tracker.action-tracker'); // turn off listeners
         super.close(options);
     }
 
     /** @override */
     _onRender(context, options) {
         // Add listeners for holding shift down and adjust add/remove buttons accordingly
-        for (const eventType of ['keydown.pf2e-manual-action-tracker.tracker', 'keyup.pf2e-manual-action-tracker.tracker']) {
+        for (const eventType of ['keydown.pf2e-manual-action-tracker.action-tracker', 'keyup.pf2e-manual-action-tracker.action-tracker']) {
             $(document).off(eventType);
             $(document).on(eventType, (event) => {
                 const { originalEvent } = event;

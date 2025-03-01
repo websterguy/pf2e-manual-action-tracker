@@ -1,7 +1,7 @@
 <div id="mainTracker">
-    {{#unless (eq tokenNameSetting "none")}}<div id="tokenName" class="{{ifThen (eq tokenNameSetting "always") "tokenNameAlways" "tokenNameHover"}}">{{name}}</div>{{/unless}}
-    {{#each actionArray as | action |}}<div class="trackerPip{{#if action.used}} used{{else}} usable{{/if}}{{#if action.quickened}} quickened{{/if}}{{#if action.slow}} slow{{/if}}{{#if action.stun}} stun{{/if}} action-glyph" data-action="useAction" data-type="action">{{#if (or action.stun action.slow)}}&nbsp;{{else}}1{{/if}}</div> {{/each}}
-    <div class="trackerPip addPip actionPip action-glyph" name="tracker-add-action" data-action="{{#if shiftDown}}removeAction"><i class="fas fa-minus"></i>1{{else}}addAction"><i class="fas fa-plus"></i>1{{/if}}</div>
-    {{#each reactionArray as | reaction |}}<div class="trackerPip{{#if reaction.used}} used{{else}} usable{{/if}}{{#if action.slow}} slow{{/if}}{{#if action.stun}} stun{{/if}} action-glyph" data-action="useAction" data-type="reaction">R</div> {{/each}}
-    <div class="trackerPip addPip reactionPip action-glyph" name="tracker-add-reaction" data-action="{{#if shiftDown}}removeAction"><i class="fas fa-minus"></i>R{{else}}addAction"><i class="fas fa-plus"></i>R{{/if}}</div>
+    {{#unless (eq tokenNameSetting "none")}}<div id="token-name" class="{{ifThen (eq tokenNameSetting "always") "token-name-always" "token-name-hover"}}">{{name}}</div>{{/unless}}
+    {{#each actionArray as | action |}}<div class="tracker-pip{{#if action.used}} used{{else}} usable{{/if}}{{#if action.quickened}} quickened{{/if}}{{#if action.slow}} slow{{/if}}{{#if action.stun}} stun{{/if}} action-glyph" data-action="useAction" data-type="action">{{#if (or action.stun action.slow)}}&nbsp;{{else}}1{{/if}}</div> {{/each}}
+    <div class="tracker-pip add-pip action-pip action-glyph" name="tracker-add-action" data-action="{{#if shiftDown}}removeAction"><i class="fas fa-minus"></i>1{{else}}addAction"><i class="fas fa-plus"></i>1{{/if}}</div>
+    {{#each reactionArray as | reaction |}}<div class="tracker-pip{{#if reaction.used}} used{{else}} usable{{/if}}{{#if action.slow}} slow{{/if}}{{#if action.stun}} stun{{/if}} action-glyph" data-action="useAction" data-type="reaction">R</div> {{/each}}
+    <div class="tracker-pip add-pip reactionPip action-glyph" name="tracker-add-reaction" data-action="{{#if shiftDown}}removeAction"><i class="fas fa-minus"></i>R{{else}}addAction"><i class="fas fa-plus"></i>R{{/if}}</div>
 </div>
