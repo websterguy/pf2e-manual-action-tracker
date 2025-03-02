@@ -31,7 +31,7 @@ Hooks.on('controlToken', function() {
  */
 Hooks.on('updateActor', function(actor) {
     if (!game.settings.get(MODULE_ID, 'enabled')) return;
-    if (canvas.tokens.controlled.length === 1 && ActionTracker.token.actor.id === actor.id) tracker.render();
+    if (canvas.tokens.controlled.length === 1 && ActionTracker.actor.id === actor.id) tracker.render();
 })
 
 /**
@@ -67,7 +67,7 @@ Hooks.on('deleteCombat', function() {
  * Check for conditions being added
  */
 Hooks.on('applyTokenStatusEffect', (token, status) => {
-    if (token.actor.inCombat || !['stunned', 'slowed', 'quickened'].includes(status) || ActionTracker.token?.id !== token.id) return;
+    if (token.actor.inCombat || !['stunned', 'slowed', 'quickened'].includes(status) || ActionTracker.actor?.id !== token.actor?.id) return;
     setTimeout(() => ActionTracker.checkRender(), 100);
 })
 
@@ -75,7 +75,7 @@ Hooks.on('applyTokenStatusEffect', (token, status) => {
  * Check for condition badges being updated
  */
 Hooks.on('updateItem', (item) => {
-    if (item.actor.inCombat || !['stunned', 'slowed', 'quickened'].includes(item.slug) || ActionTracker.token?.actor.id !== item.actor.id) return;
+    if (item.actor.inCombat || !['stunned', 'slowed', 'quickened'].includes(item.slug) || ActionTracker.actor?.id !== token.actor?.id) return;
     ActionTracker.checkRender();
 })
 
@@ -83,7 +83,7 @@ Hooks.on('updateItem', (item) => {
  * Check for items granting conditions inMemoryOnly
  */
 Hooks.on('createItem', (item) => {
-    if (item.actor.inCombat || item.type !== 'effect' || ActionTracker.token?.actor.id !== item.actor.id) return;
+    if (item.actor.inCombat || item.type !== 'effect' || ActionTracker.actor?.id !== item.actor.id) return;
     ActionTracker.checkRender();
 })
 
@@ -91,7 +91,7 @@ Hooks.on('createItem', (item) => {
  * Check for removal of effects granting conditions
  */
 Hooks.on('deleteItem', (item) => {
-    if (item.actor.inCombat || item.type !== 'effect' || ActionTracker.token?.actor.id !== item.actor.id) return;
+    if (item.actor.inCombat || item.type !== 'effect' || ActionTracker.actor?.id !== item.actor.id) return;
     ActionTracker.checkRender();
 })
 
@@ -100,7 +100,7 @@ Hooks.on('deleteItem', (item) => {
  */
 class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
     static actionsData;
-    static token;
+    static actor;
     static shiftDown = false; // holds if shift is being held down when window re-renders
 
     static DEFAULT_OPTIONS = {
@@ -127,7 +127,7 @@ class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
     async _prepareContext(options) {
         const context = { };
         
-        ActionTracker.actionsData = ActionTracker.token.actor.getFlag(MODULE_ID, 'actions');
+        ActionTracker.actionsData = ActionTracker.actor.getFlag(MODULE_ID, 'actions');
 
         // Set defaults for actors that haven't been initialized
         if (!ActionTracker.actionsData) {
@@ -141,19 +141,19 @@ class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
                 slowed: 0,
                 stunned: 0
             }
-            if (ActionTracker.token.actor.inCombat) await ActionTracker.updateActor();
+            if (ActionTracker.actor.inCombat) await ActionTracker.updateActor();
         }
 
         let quickened, slowed, stunned;
 
         // Find the values of the conditions important to be tracked. When in combat, we want only the stored values from the start of turn. Out of combat, update immediately.
-        if (ActionTracker.token.actor.inCombat) {
+        if (ActionTracker.actor.inCombat) {
             ({ quickened, slowed, stunned } = ActionTracker.actionsData);
         }
         else {
-            ActionTracker.actionsData.quickened = quickened = ActionTracker.token.actor.conditions.contents.some(o => o.slug === 'quickened') ? 1 : 0;
-            ActionTracker.actionsData.slowed = slowed = ActionTracker.token.actor.conditions.contents.find(o => o.slug === 'slowed')?.system.value.value ?? 0;
-            ActionTracker.actionsData.stunned = stunned = ActionTracker.token.actor.conditions.contents.find(o => o.slug === 'stunned')?.system.value.value ?? 0;
+            ActionTracker.actionsData.quickened = quickened = ActionTracker.actor.conditions.contents.some(o => o.slug === 'quickened') ? 1 : 0;
+            ActionTracker.actionsData.slowed = slowed = ActionTracker.actor.conditions.contents.find(o => o.slug === 'slowed')?.system.value.value ?? 0;
+            ActionTracker.actionsData.stunned = stunned = ActionTracker.actor.conditions.contents.find(o => o.slug === 'stunned')?.system.value.value ?? 0;
             await ActionTracker.updateActor();
         }
 
@@ -202,7 +202,7 @@ class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
         }
 
         context.shiftDown = ActionTracker.shiftDown; // to show remove button instead of add
-        context.name = ActionTracker.token.name;
+        context.name = ActionTracker.actor.getActiveTokens()[0].name || ActionTracker.actor.name;
         context.tokenNameSetting = game.settings.get(MODULE_ID, 'tokenName');
         return context;
     }
@@ -224,8 +224,9 @@ class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
      * Checks to make sure only have 1 token selected to show tracker for that actor. Displays based on settings.
      */
     static checkRender = foundry.utils.debounce(() => {
-        if (canvas.tokens.controlled.length === 1) {
-            if (!canvas.tokens.controlled[0].actor || (!canvas.tokens.controlled[0].actor.inCombat && !game.settings.get(MODULE_ID, 'outOfCombat'))) return;
+        if (canvas.tokens.controlled.length === 1 || !!game.user.character) {
+            const actor = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0]?.actor : game.user.character;
+            if (!actor || !actor.isOwner || (!actor.inCombat && !game.settings.get(MODULE_ID, 'outOfCombat'))) return;
             if (!rendered) {
                 tracker.render({ force: true, position: { left: positionX, top: positionY } });
                 rendered = true;
@@ -241,7 +242,7 @@ class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
     
     /** @override */
     render(options) {
-        ActionTracker.token = canvas.tokens.controlled[0];
+        ActionTracker.actor = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0]?.actor : game.user.character;
         super.render(options);
     }
 
@@ -270,7 +271,7 @@ class ActionTracker extends HandlebarsApplicationMixin(ApplicationV2) {
      * @returns Promise
      */
     static async updateActor() {
-        return await ActionTracker.token.actor.setFlag(MODULE_ID, 'actions', ActionTracker.actionsData);
+        return await ActionTracker.actor.setFlag(MODULE_ID, 'actions', ActionTracker.actionsData);
     }
 
     /**
