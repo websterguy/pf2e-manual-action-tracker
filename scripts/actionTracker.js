@@ -75,7 +75,7 @@ Hooks.on('applyTokenStatusEffect', (token, status) => {
  * Check for condition badges being updated
  */
 Hooks.on('updateItem', (item) => {
-    if (item.actor.inCombat || !['stunned', 'slowed', 'quickened'].includes(item.slug) || ActionTracker.actor?.id !== token.actor?.id) return;
+    if (item.actor.inCombat || !['stunned', 'slowed', 'quickened'].includes(item.slug) || ActionTracker.actor?.id !== item.actor?.id) return;
     ActionTracker.checkRender();
 })
 
